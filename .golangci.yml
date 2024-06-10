@@ -1,15 +1,15 @@
 run:
   timeout: 3m
-  skip-files: []
-  skip-dirs: []
 
 linters-settings:
   govet:
     enable-all: true
     disable:
       - fieldalignment
-  golint:
-    min-confidence: 0
+  revive:
+    rules:
+      - name: var-naming
+        disabled: true
   gocyclo:
     min-complexity: 12
   goconst:
@@ -25,21 +25,21 @@ linters-settings:
       - FIXME
   gofumpt:
     extra-rules: true
+  depguard:
+    rules:
+      main:
+        allow:
+          - $gostd
+          - "github.com/RiskIdent/traefik-remoteaddr-plugin"
+  stylecheck:
+    checks:
+      - all
+      # Remove some checks:
+      - -ST1003 # should not use underscores in package names
 
 linters:
   enable-all: true
   disable:
-    - deadcode # deprecated
-    - exhaustivestruct # deprecated
-    - golint # deprecated
-    - ifshort # deprecated
-    - interfacer # deprecated
-    - maligned # deprecated
-    - nosnakecase # deprecated
-    - scopelint # deprecated
-    - scopelint # deprecated
-    - structcheck # deprecated
-    - varcheck # deprecated
     - sqlclosecheck # not relevant (SQL)
     - rowserrcheck # not relevant (SQL)
     - execinquery # not relevant (SQL)
@@ -53,18 +53,16 @@ linters:
     - wsl
     - exhaustive
     - exhaustruct
-    - goerr113
     - wrapcheck
-    - ifshort
     - noctx
     - lll
     - gomnd
     - forbidigo
     - varnamelen
+    - exhaustivestruct
 
 issues:
   exclude-use-default: false
-  max-per-linter: 0
   max-same-issues: 0
   exclude: []
   exclude-rules:
