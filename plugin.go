@@ -51,7 +51,16 @@ func New(_ context.Context, next http.Handler, config *Config, name string) (htt
 }
 
 func (a *RemoteAddrPlugin) ServeHTTP(rw http.ResponseWriter, req *http.Request) {
-	ip, port, _ := strings.Cut(req.RemoteAddr, ":")
+	//ip, port, _ := strings.Cut(req.RemoteAddr, ":")
+        parts := strings.Split(reqRemoteAddr, ":")
+
+        if len(parts) == 2 {
+                ip := parts[0]
+                port := parts[1]
+                fmt.Printf("IP: %s, Port: %s\n", ip, port)
+        } else {
+                fmt.Println("Formato inválido")
+        }
 
 	if a.headers.IP != "" {
 		req.Header.Set(a.headers.IP, ip)
