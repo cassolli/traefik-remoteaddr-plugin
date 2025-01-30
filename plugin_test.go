@@ -6,7 +6,7 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	plugin "github.com/RiskIdent/traefik-remoteaddr-plugin"
+	plugin "github.com/cassolli/traefik-remoteaddr-plugin"
 )
 
 func TestInvalidConfig(t *testing.T) {
